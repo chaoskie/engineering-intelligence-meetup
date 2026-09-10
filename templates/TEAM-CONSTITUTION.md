@@ -1,11 +1,11 @@
-# Harness: table <name>
+# Team constitution: table <name>
 
-Copy this file to `tables/<table-name>/HARNESS.md`. Fill it in during the
+Copy this file to `tables/<table-name>/TEAM-CONSTITUTION.md`. Fill it in during the
 breakout, load it as your assistant's rules file for the second run of
 `tasks/TASK.md`, then push your folder to branch `tables`.
 
-Score without harness: _ / 7
-Score with harness:    _ / 7
+Score zonder constitutie: _ / 7
+Score met constitutie:    _ / 7
 Traps that flipped and why (one line):
 
 ---
@@ -43,8 +43,9 @@ One sentence. Small enough to actually happen.
 
 ## Rules for the assistant
 
-Below this line, write the rules your assistant should follow on this
-codebase. This is the part that gets loaded for the "with harness" run.
+This section is your team's constitution: the part of the harness that says
+what always holds and what was learned the hard way. Write the rules your
+assistant should follow on this codebase. This is the part that gets loaded for the "with harness" run.
 Short imperative rules with an origin note work best, for example:
 
 - Before adding a dependency, check the wiki's `decisions/adr/` for a ban. (ADR-003)

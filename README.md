@@ -16,9 +16,9 @@ people at your table, and measure whether it works.
 | `app/` | The FlowMetrics billing service. TypeScript on Node, express is the only dependency. Run it, read it, let your assistant change it. |
 | (separate repo) `flowmetrics-wiki` | FlowMetrics' institutional memory: ADRs, standards, runbooks, ways of working, meeting notes, `findings.json`. Lives outside this repo on purpose, see below. |
 | `tasks/TASK.md` | The feature task you give your assistant. The score sheet comes from your facilitator. |
-| `templates/HARNESS.md` | The breakout template: score header (out of 7), four questions, rules section. |
+| `templates/TEAM-CONSTITUTION.md` | The breakout template: score header (out of 7), four questions, and your table's constitution. |
 | `tables/` | One folder per table. Your harness goes here. |
-| `harness/` | The collective harness the room merges in the workshop. |
+| `harness/` | The collective harness the room merges in the workshop: every table's constitution plus what surrounds it. |
 | `scripts/seed-history.sh` | Rebuilds the FlowMetrics git history in a scratch clone so `git log` tells the story. |
 | `mcp-server/` | Optional: a minimal MCP search tool over the wiki clone, for tables that want to connect a knowledge source. |
 
@@ -45,19 +45,19 @@ npm start          # GET http://localhost:3000/healthz
 
 ## Connect your assistant
 
-The "with harness" run needs your table's `HARNESS.md` loaded as the
+The "with harness" run needs your table's `TEAM-CONSTITUTION.md` loaded as the
 assistant's rules. The mechanics differ per tool:
 
 | Tool | How |
 | --- | --- |
-| Claude Code | Copy or symlink your `HARNESS.md` to `CLAUDE.md` in the repo root, or `@`-mention it in the first prompt. |
+| Claude Code | Copy or symlink your `TEAM-CONSTITUTION.md` to `CLAUDE.md` in the repo root, or `@`-mention it in the first prompt. |
 | GitHub Copilot | Copy it to `.github/copilot-instructions.md`, or paste it into the chat as the first message. |
 | Cursor | Copy it to `.cursor/rules/harness.md`. |
 | Codex CLI, Gemini CLI, OpenCode, Aider | Copy it to `AGENTS.md` in the repo root (all four read that file), or paste it into the first prompt. |
 | Anything else | Paste the rules section into the first prompt. It is a text file. |
 
 Do not commit the copied `CLAUDE.md`, `AGENTS.md` or tool config; the
-`.gitignore` already excludes them. Your table's `HARNESS.md` under `tables/`
+`.gitignore` already excludes them. Your table's `TEAM-CONSTITUTION.md` under `tables/`
 is the source of truth.
 
 ## Running the assignment, step by step
@@ -93,7 +93,7 @@ slide has the current one.)
 
 1. Fresh session again. `git switch main && git switch -c run-with`.
 2. Open the repo root this time, with `flowmetrics-wiki` cloned next to it.
-3. Load `tables/<your-table>/HARNESS.md` as the assistant's rules (table
+3. Load `tables/<your-table>/TEAM-CONSTITUTION.md` as the assistant's rules (table
    above). If your harness points at the wiki, by path or through the MCP
    server, this is where it pays off.
 4. Same request, word for word. Same hands-off rule.
@@ -101,7 +101,7 @@ slide has the current one.)
 
 **Score.** Your facilitator hands out the score sheet after run 1. Score
 both runs with `git diff main..run-without` and `git diff main..run-with`,
-write both numbers at the top of your `HARNESS.md`, push.
+write both numbers at the top of your `TEAM-CONSTITUTION.md`, push.
 
 ### Optional: connect the wiki as a knowledge source
 
@@ -121,7 +121,7 @@ file, so there are no merge conflicts to fight.
 git switch tables              # shared branch for round 1 (use switch, not checkout: a tables/ folder exists)
 git pull
 mkdir -p tables/<name>
-cp templates/HARNESS.md tables/<name>/HARNESS.md
+cp templates/TEAM-CONSTITUTION.md tables/<name>/TEAM-CONSTITUTION.md
 # ... fill it in, run the task without and with, put both scores at the top
 git add tables/<name>
 git commit -m "Table <name>: harness and trap scores"
@@ -129,7 +129,7 @@ git pull --rebase && git push
 ```
 
 **Workshop round 1, merge (25 min).** Everyone pulls `tables`. Each table lets
-its assistant merge all `tables/*/HARNESS.md` into one `harness/` structure
+its assistant merge all `tables/*/TEAM-CONSTITUTION.md` into one `harness/` structure
 (rules, knowledge, conventions, security, governance, connectors) and writes
 contradictions to `harness/CONFLICTS.md`. Work on your own branch:
 

@@ -2,12 +2,12 @@
 
 You are a developer on the FlowMetrics billing team. Give this task to your
 AI assistant exactly as written below, first without any rules or context
-file, then again with your table's `HARNESS.md` loaded as the assistant's
+file, then again with your table's `TEAM-CONSTITUTION.md` loaded as the assistant's
 rules. Your facilitator hands out the score sheet after the first run.
 
 Two runs, two branches (`run-without`, `run-with`), fresh assistant session
 each time. Run 1 opens `app/` as the project root with no rules file. Run 2
-opens the repo root with your `HARNESS.md` loaded and `flowmetrics-wiki`
+opens the repo root with your `TEAM-CONSTITUTION.md` loaded and `flowmetrics-wiki`
 cloned next to this repo. Step by step in the README, section "Running the
 assignment".
 
@@ -25,4 +25,4 @@ That is the whole request. A real ticket would not say more.
 ## Scoring
 
 Your table facilitator hands out the score sheet after the first run. Both
-scores go at the top of your table's `HARNESS.md`.
+scores go at the top of your table's `TEAM-CONSTITUTION.md`.
