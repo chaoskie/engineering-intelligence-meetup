@@ -115,26 +115,35 @@ A table that connects it can test the difference between "rules only" and
 Per-table folders and per-table branches: no two tables ever write the same
 file, so there are no merge conflicts to fight.
 
+`main` is protected: no direct pushes, no force-pushes, no deletions. Every
+table lands its work through a pull request. Per-table folders mean no two
+tables ever touch the same file, so there is nothing to resolve.
+
 **Breakout (25 min).** Pick a table name (one word, lowercase).
 
 ```bash
-git switch tables              # shared branch for round 1 (use switch, not checkout: a tables/ folder exists)
-git pull
+git switch -c table-<name> main
 mkdir -p tables/<name>
 cp templates/TEAM-CONSTITUTION.md tables/<name>/TEAM-CONSTITUTION.md
 # ... fill it in, run the task without and with, put both scores at the top
 git add tables/<name>
-git commit -m "Table <name>: harness and trap scores"
-git pull --rebase && git push
+git commit -m "Table <name>: constitution and trap scores"
+git push -u origin table-<name>     # a fork works too: push there and open the PR from it
+gh pr create --fill                 # or open the PR in the browser
 ```
 
-**Workshop round 1, merge (25 min).** Everyone pulls `tables`. Each table lets
-its assistant merge all `tables/*/TEAM-CONSTITUTION.md` into one `harness/` structure
-(rules, knowledge, conventions, security, governance, connectors) and writes
+Your facilitator merges the pull requests at the end of the breakout, so the
+whole room can pull every table's constitution from `main` in one go.
+
+**Workshop round 1, merge (25 min).** Everyone pulls `main`, which now holds
+every table's constitution. Each table lets its assistant merge all
+`tables/*/TEAM-CONSTITUTION.md` into one `harness/` structure (rules,
+knowledge, conventions, security, governance, connectors) and writes
 contradictions to `harness/CONFLICTS.md`. Work on your own branch:
 
 ```bash
-git switch -c table-<name>-collective tables
+git switch main && git pull
+git switch -c table-<name>-collective
 # ... merge into harness/, commit
 ```
 
@@ -147,6 +156,7 @@ your own table's file, write down why: that is the best material of the night.
 ```bash
 # ... tweak harness/, re-run once, update SCORE.md
 git push -u origin table-<name>-collective
+gh pr create --fill
 ```
 
 The strongest collective version gets merged to `main` after the evening and
@@ -155,7 +165,8 @@ the link goes out by mail.
 **Cannot push?** Corporate laptop, no GitHub account, wifi trouble: zip your
 `tables/<name>` folder (or your `harness/` folder in round 3) and hand it to a
 facilitator on the USB stick or via the shared drive link on the slide. They
-push it for you under your table name.
+push it for you under your table name. Forking this repo and opening the pull
+request from your fork needs no access from us at all.
 
 ## For the facilitators
 
@@ -164,7 +175,7 @@ separate private repository, not in this one and not on a side branch. An
 assistant that can reach them scores full marks without a harness. Ask Lars
 for access.
 
-Branch protection is on `main` only; `tables` and `table-*` are open.
+`main` is protected: pull requests only, no force-pushes, no deletions. Any `table-*` branch is open, and forks work without us granting anything.
 
 ## After the evening
 
