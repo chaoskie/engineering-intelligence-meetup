@@ -4,11 +4,12 @@
   "private": true,
   "description": "FlowMetrics usage-billing service (meetup starter kit, fictional company)",
   "type": "module",
-  "engines": { "node": ">=22.18" },
+  "engines": {
+    "node": ">=22.18"
+  },
   "scripts": {
     "start": "node src/server.ts",
-    "test": "node --test \"test/**/*.test.ts\"",
-    "score": "sh ../scripts/score.sh"
+    "test": "node --test \"test/**/*.test.ts\""
   },
   "dependencies": {
     "express": "4.17.1"

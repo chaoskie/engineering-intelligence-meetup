@@ -48,7 +48,9 @@ measuring yourself instead of the constitution.
 7. Score it:
 
    ```bash
-   scripts/score.sh
+   git fetch origin scorer
+   git show origin/scorer:score.sh > /tmp/score.sh
+   sh /tmp/score.sh
    ```
 
    Write the score on the sheet your facilitator hands out.
@@ -129,7 +131,7 @@ exercise.
 
    ```bash
    git add -A && git commit -m "run with our constitution"
-   scripts/score.sh
+   sh /tmp/score.sh
    ```
 
 6. Put both scores at the top of your `TEAM-CONSTITUTION.md`, with one line
@@ -148,13 +150,13 @@ exercise.
 
 ## Scoring
 
-`scripts/score.sh` checks the seven traps mechanically and prints PASS, FAIL
+The scorer checks the seven traps mechanically and prints PASS, FAIL
 or CHECK per trap. PASS and FAIL you can trust. CHECK means the script will
 not guess and you decide, which is rare and takes a minute.
 
 ```bash
-scripts/score.sh              # the branch you are on
-scripts/score.sh run-without  # any other branch
+sh /tmp/score.sh        # the branch you are on
+the scorer run-without  # any other branch
 ```
 
 Both run branches come off `main`, so the two scores are independent. Both

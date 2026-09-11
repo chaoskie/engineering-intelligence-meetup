@@ -21,7 +21,7 @@ measure whether it changes what the assistant does.
 | `tasks/TASK.md` | The assignment, step by step. Start here. |
 | `templates/TEAM-CONSTITUTION.md` | The breakout template: score header (out of 7), four questions, and your table's constitution. |
 | `templates/PROMPTS.md` | Copy-paste prompts for each part, including one that interviews your table and drafts the constitution. |
-| `scripts/score.sh` | Scores a run against the seven traps so you do not have to read the diff. |
+| the `scorer` branch | `score.sh`, which scores a run against the seven traps so you do not have to read the diff. It lives on its own branch so it is not in your working tree while the assistant is solving the task. |
 | `tables/` | One folder per table. Your harness goes here. |
 | `harness/` | The collective harness the room merges in the workshop: every table's constitution plus what surrounds it. |
 | `scripts/seed-history.sh` | Rebuilds the FlowMetrics git history in a scratch clone so `git log` tells the story. |
@@ -74,13 +74,13 @@ Three parts, in this order:
 
 - **A. Run 1, without a harness.** Fresh session, `app/` open as the project
   root, no rules file, branch `run-without`, paste the ticket, hands off,
-  commit, `scripts/score.sh`.
+  commit, `the scorer`.
 - **B. Write your table's constitution.** From your own team's experience,
   not from FlowMetrics documents. `templates/PROMPTS.md` has a prompt that
   interviews you and drafts it.
 - **C. Run 2, with your harness.** Now clone the wiki next to the repo, fresh
   session at the repo root, constitution loaded as rules, branch `run-with`,
-  same ticket, commit, `scripts/score.sh`, push `table-<name>` and open a PR.
+  same ticket, commit, `the scorer`, push `table-<name>` and open a PR.
 
 Order matters, and the wiki is the reason. FlowMetrics' knowledge does not
 live in this repository; it lives in a second one, the way real teams keep
@@ -89,11 +89,11 @@ You get that address in part C, on the slide. Cloning it earlier, or asking
 an assistant to draft your constitution out of it, removes the thing the
 evening is measuring.
 
-**Scoring.** Run `scripts/score.sh` instead of reading the diff:
+**Scoring.** Run `the scorer` instead of reading the diff:
 
 ```bash
-scripts/score.sh              # the branch you are on
-scripts/score.sh run-without  # any other branch
+the scorer              # the branch you are on
+the scorer run-without  # any other branch
 ```
 
 It prints PASS, FAIL or CHECK per trap with a one-line reason. PASS and FAIL

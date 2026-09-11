@@ -1,12 +1,13 @@
 # scripts
 
-`score.sh` scores a run against the seven traps and prints PASS, FAIL or
-CHECK per trap with the reason. PASS and FAIL are mechanical; CHECK means it
-will not guess and you decide. It never counts a CHECK as a point.
+`score.sh` now lives on the `scorer` branch, not here: it names every trap,
+and it should not sit in the working tree while an assistant is solving the
+task. Fetch it with `git show origin/scorer:score.sh > /tmp/score.sh`.
 
 ```bash
-scripts/score.sh                 # the branch you are on, working tree included
-scripts/score.sh run-without     # any other branch, read from git
+git show origin/scorer:score.sh > /tmp/score.sh
+sh /tmp/score.sh                 # the branch you are on, working tree included
+sh /tmp/score.sh run-without     # any other branch, read from git
 ```
 
 `seed-history.sh` rebuilds the FlowMetrics history: about twenty backdated

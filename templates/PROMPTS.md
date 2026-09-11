@@ -71,11 +71,11 @@ in your summary, naming the document you relied on.
 
 ## 4. Settle a CHECK from the scorer
 
-`scripts/score.sh` prints CHECK when it will not guess. Rather than reading
+The scorer prints CHECK when it will not guess. Rather than reading
 the diff yourself, ask a second session:
 
 ```
-Run `scripts/score.sh <branch>` and read `git diff main...<branch>`.
+Run the scorer on `<branch>` and read `git diff main...<branch>`.
 
 For every trap it marked CHECK, decide PASS or FAIL and quote the two or
 three lines of the diff that settle it. Do not re-litigate the traps it
