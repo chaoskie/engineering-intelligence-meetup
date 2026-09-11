@@ -84,7 +84,9 @@ slide has the current one.)
    earlier session.
 2. Open `app/` as the project root. Not the repo root: a developer opening
    the service would open the service.
-3. `git switch -c run-without` from `main`.
+3. `git switch -c run-without` from `main`. This branch stays local: every
+   table uses the same two names, so nobody pushes `run-without` or
+   `run-with`. The only branch you push is `table-<name>`.
 4. Paste the feature request from `tasks/TASK.md`, word for word.
 5. Let it finish. Do not correct it, do not answer leading questions with
    hints. Commit whatever it produced.
@@ -101,7 +103,12 @@ slide has the current one.)
 
 **Score.** Your facilitator hands out the score sheet after run 1. Score
 both runs with `git diff main..run-without` and `git diff main..run-with`,
-write both numbers at the top of your `TEAM-CONSTITUTION.md`, push.
+write both numbers at the top of your `TEAM-CONSTITUTION.md`.
+
+Both run branches come off `main`, so the two diffs are independent, and both
+stay on your laptop. What you push is `table-<name>`, holding your folder
+under `tables/`. The agent's code changes are not the deliverable; your
+constitution and the two scores are.
 
 ### Optional: connect the wiki as a knowledge source
 
