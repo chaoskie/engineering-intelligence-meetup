@@ -1,7 +1,8 @@
-# flowmetrics-wiki MCP server
+# Wiki MCP server
 
 A dependency-free MCP server (stdio) with two tools over a clone of the
-`flowmetrics-wiki` repository:
+FlowMetrics wiki repository. You get the address of that repository in part C
+of the assignment; it is on the slide. Nothing here needs it before then:
 
 - `search(query, limit?)`: keyword search over the markdown docs, returns
   paths, titles and snippets. Documents carry status headers; superseded
@@ -10,11 +11,12 @@ A dependency-free MCP server (stdio) with two tools over a clone of the
   findings. Try `pattern: "config-drift"`. Keyword search finds knowledge;
   it cannot count. This tool can.
 
-Wiki location, in order: first argument, `WIKI_DIR`, else
-`../flowmetrics-wiki` relative to the meetup repo (a clone next to it).
+Wiki location, in order: first argument, then the `WIKI_DIR` environment
+variable, else `../flowmetrics-wiki` relative to the meetup repo, which is
+where it lands if you clone it next to this one.
 
 Run the tests: `cd mcp-server && npm test`. Needs the wiki cloned next to
-the repo. No install needed.
+the repo, so this only works from part C onwards. No install needed.
 
 ## Connect it
 

@@ -1,28 +1,31 @@
 # Team constitution: table <name>
 
-Copy this file to `tables/<table-name>/TEAM-CONSTITUTION.md`. Fill it in during the
-breakout, load it as your assistant's rules file for the second run of
-`tasks/TASK.md`, then push your folder to branch `tables`.
+Copy this file to `tables/<table-name>/TEAM-CONSTITUTION.md`. Fill it in
+during the breakout, load it as your assistant's rules file for run 2 of
+`tasks/TASK.md`, then push branch `table-<name>` and open a pull request.
 
-Score zonder constitutie: _ / 7
-Score met constitutie:    _ / 7
+This file is your constitution: one part of a harness, the part that says what
+always holds and what you learned the hard way.
+
+Score without the constitution: _ / 7
+Score with the constitution:    _ / 7
 Traps that flipped and why (one line):
 
 ---
 
-## 1. Which segments does a harness for your team need?
+## 1. Which parts does a harness for your team need?
 
-List the segments. Examples: rules, context, knowledge sources, guardrails,
-tracing and governance, security, onboarding, review gates, connectors.
+List them. Examples: rules, context, knowledge sources, guardrails, tracing
+and governance, security, onboarding, review gates, connectors.
 
 -
 
-## 2. Per segment: why does it need to be said, and what do you expect to gain?
+## 2. Per part: why does it need to be said, and what do you expect to gain?
 
-One block per segment. "Why" is ideally an incident or a recurring review
-comment; "gain" is what changes on Monday if the segment exists.
+One block per part. "Why" is ideally an incident or a recurring review
+comment; "gain" is what changes on Monday if that part exists.
 
-### <segment>
+### <part>
 - Why:
 - Expected gain:
 

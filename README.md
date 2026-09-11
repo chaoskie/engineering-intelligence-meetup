@@ -6,17 +6,22 @@ is fictional: FlowMetrics is a made-up 40-person dev shop that bills API
 usage. Nothing here refers to a real company or customer.
 
 The evening's idea in one line: the model is a commodity, the leverage is the
-harness a team builds around it. Tonight you build one, in git, with the
-people at your table, and measure whether it works.
+harness a team builds around it. The harness is the whole environment around
+the model: the knowledge it can reach, the rules and guardrails it works
+under, the governance that records what it did, and the security boundary it
+sits in. Tonight you write one part of that, your table's constitution, and
+measure whether it changes what the assistant does.
 
 ## What is in here
 
 | Path | What |
 | --- | --- |
 | `app/` | The FlowMetrics billing service. TypeScript on Node, express is the only dependency. Run it, read it, let your assistant change it. |
-| (separate repo) `flowmetrics-wiki` | FlowMetrics' institutional memory: ADRs, standards, runbooks, ways of working, meeting notes, `findings.json`. Lives outside this repo on purpose, see below. |
-| `tasks/TASK.md` | The feature task you give your assistant. The score sheet comes from your facilitator. |
+| (separate repo) the FlowMetrics wiki | FlowMetrics' institutional memory: ADRs, standards, runbooks, ways of working, meeting notes, `findings.json`. Lives outside this repo on purpose, see below. You get the address in part C. |
+| `tasks/TASK.md` | The assignment, step by step. Start here. |
 | `templates/TEAM-CONSTITUTION.md` | The breakout template: score header (out of 7), four questions, and your table's constitution. |
+| `templates/PROMPTS.md` | Copy-paste prompts for each part, including one that interviews your table and drafts the constitution. |
+| `scripts/score.sh` | Scores a run against the seven traps so you do not have to read the diff. |
 | `tables/` | One folder per table. Your harness goes here. |
 | `harness/` | The collective harness the room merges in the workshop: every table's constitution plus what surrounds it. |
 | `scripts/seed-history.sh` | Rebuilds the FlowMetrics git history in a scratch clone so `git log` tells the story. |
@@ -60,62 +65,53 @@ Do not commit the copied `CLAUDE.md`, `AGENTS.md` or tool config; the
 `.gitignore` already excludes them. Your table's `TEAM-CONSTITUTION.md` under `tables/`
 is the source of truth.
 
-## Running the assignment, step by step
+## Running the assignment
 
-Order matters: clone the wiki only after run 1 is committed. Capable agents search the whole disk for anything the code or git history mentions, and the history mentions the wiki.
+**`tasks/TASK.md` is the assignment, with every command in order.** This
+section is the short version.
 
-The knowledge of FlowMetrics does not live in this repository. It lives in
-a second repository, `flowmetrics-wiki`, the way real teams keep decisions
-in Confluence, Notion or a docs repo rather than next to the code. Clone it
-next to this one:
+Three parts, in this order:
+
+- **A. Run 1, without a harness.** Fresh session, `app/` open as the project
+  root, no rules file, branch `run-without`, paste the ticket, hands off,
+  commit, `scripts/score.sh`.
+- **B. Write your table's constitution.** From your own team's experience,
+  not from FlowMetrics documents. `templates/PROMPTS.md` has a prompt that
+  interviews you and drafts it.
+- **C. Run 2, with your harness.** Now clone the wiki next to the repo, fresh
+  session at the repo root, constitution loaded as rules, branch `run-with`,
+  same ticket, commit, `scripts/score.sh`, push `table-<name>` and open a PR.
+
+Order matters, and the wiki is the reason. FlowMetrics' knowledge does not
+live in this repository; it lives in a second one, the way real teams keep
+decisions in Confluence, Notion or a docs repo rather than next to the code.
+You get that address in part C, on the slide. Cloning it earlier, or asking
+an assistant to draft your constitution out of it, removes the thing the
+evening is measuring.
+
+**Scoring.** Run `scripts/score.sh` instead of reading the diff:
 
 ```bash
-cd ..
-git clone https://github.com/chaoskie/flowmetrics-wiki.git
-cd engineering-intelligence-meetup
+scripts/score.sh              # the branch you are on
+scripts/score.sh run-without  # any other branch
 ```
 
-(The URL moves to the the/experts organisation before the evening; the
-slide has the current one.)
+It prints PASS, FAIL or CHECK per trap with a one-line reason. PASS and FAIL
+are mechanical. CHECK means it will not guess and you decide; `PROMPTS.md`
+has a prompt that asks a second session to settle those from the diff. Write
+both scores at the top of your `TEAM-CONSTITUTION.md`.
 
-**Run 1, without a harness.**
-
-1. Start a fresh assistant session. No rules file, no memory from an
-   earlier session.
-2. Open `app/` as the project root. Not the repo root: a developer opening
-   the service would open the service.
-3. `git switch -c run-without` from `main`. This branch stays local: every
-   table uses the same two names, so nobody pushes `run-without` or
-   `run-with`. The only branch you push is `table-<name>`.
-4. Paste the feature request from `tasks/TASK.md`, word for word.
-5. Let it finish. Do not correct it, do not answer leading questions with
-   hints. Commit whatever it produced.
-
-**Run 2, with your table's harness.**
-
-1. Fresh session again. `git switch main && git switch -c run-with`.
-2. Open the repo root this time, with `flowmetrics-wiki` cloned next to it.
-3. Load `tables/<your-table>/TEAM-CONSTITUTION.md` as the assistant's rules (table
-   above). If your harness points at the wiki, by path or through the MCP
-   server, this is where it pays off.
-4. Same request, word for word. Same hands-off rule.
-5. Commit.
-
-**Score.** Your facilitator hands out the score sheet after run 1. Score
-both runs with `git diff main..run-without` and `git diff main..run-with`,
-write both numbers at the top of your `TEAM-CONSTITUTION.md`.
-
-Both run branches come off `main`, so the two diffs are independent, and both
-stay on your laptop. What you push is `table-<name>`, holding your folder
-under `tables/`. The agent's code changes are not the deliverable; your
-constitution and the two scores are.
+Both run branches come off `main`, so the two scores are independent, and
+both stay on your laptop: every table uses those same two names. What you
+push is `table-<name>`, holding your folder under `tables/`. The agent's code
+changes are not the deliverable; your constitution and the two scores are.
 
 ### Optional: connect the wiki as a knowledge source
 
-`mcp-server/` is a small MCP server with `search` and `findings` tools over
-the wiki clone. See `mcp-server/README.md` for the one-line config per tool.
-A table that connects it can test the difference between "rules only" and
-"rules plus a searchable knowledge base".
+From part C onwards, `mcp-server/` is a small MCP server with `search` and
+`findings` tools over the wiki clone. See `mcp-server/README.md` for the
+one-line config per tool. A table that connects it can test the difference
+between "rules only" and "rules plus a searchable knowledge base".
 
 ## The evening's git flow
 
@@ -126,7 +122,7 @@ file, so there are no merge conflicts to fight.
 table lands its work through a pull request. Per-table folders mean no two
 tables ever touch the same file, so there is nothing to resolve.
 
-**Breakout (25 min).** Pick a table name (one word, lowercase).
+**Breakout.** Pick a table name (one word, lowercase).
 
 ```bash
 git switch -c table-<name> main

@@ -7,7 +7,8 @@
   "engines": { "node": ">=22.18" },
   "scripts": {
     "start": "node src/server.ts",
-    "test": "node --test \"test/**/*.test.ts\""
+    "test": "node --test \"test/**/*.test.ts\"",
+    "score": "sh ../scripts/score.sh"
   },
   "dependencies": {
     "express": "4.17.1"

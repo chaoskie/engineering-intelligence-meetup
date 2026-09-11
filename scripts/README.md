@@ -1,5 +1,14 @@
 # scripts
 
+`score.sh` scores a run against the seven traps and prints PASS, FAIL or
+CHECK per trap with the reason. PASS and FAIL are mechanical; CHECK means it
+will not guess and you decide. It never counts a CHECK as a point.
+
+```bash
+scripts/score.sh                 # the branch you are on, working tree included
+scripts/score.sh run-without     # any other branch, read from git
+```
+
 `seed-history.sh` rebuilds the FlowMetrics history: about twenty backdated
 commits, each referencing the ADR or incident it came from. `main` already
 carries that history, so you do not need to run this. It exists so the
