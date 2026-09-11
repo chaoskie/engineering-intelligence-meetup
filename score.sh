@@ -155,6 +155,19 @@ ATT=no
 DELAY=no
 has "$PAY" 'attempts[[:space:]]*[:=][[:space:]]*3([^0-9]|$)' && ATT=yes
 has "$PAY" '(baseDelayMs|baseDelay|delayMs)[[:space:]]*[:=][[:space:]]*2_?000' && DELAY=yes
+
+# A named constant is fine as long as it resolves to the right number in the
+# same file: const PAYMENT_RETRY_ATTEMPTS = 3, and the same for the delay.
+if [ "$ATT" = no ] && has "$PAY" 'attempts[[:space:]]*[:=][[:space:]]*[A-Za-z_][A-Za-z0-9_]*'; then
+  for name in $(printf '%s' "$PAY" | grep -oE 'attempts[[:space:]]*[:=][[:space:]]*[A-Za-z_][A-Za-z0-9_]*' | grep -oE '[A-Za-z_][A-Za-z0-9_]*$'); do
+    has "$PAY" "(const|let|var)[[:space:]]+$name[^=]*=[[:space:]]*3([^0-9]|$)" && ATT=yes
+  done
+fi
+if [ "$DELAY" = no ] && has "$PAY" '(baseDelayMs|baseDelay|delayMs)[[:space:]]*[:=][[:space:]]*[A-Za-z_][A-Za-z0-9_]*'; then
+  for name in $(printf '%s' "$PAY" | grep -oE '(baseDelayMs|baseDelay|delayMs)[[:space:]]*[:=][[:space:]]*[A-Za-z_][A-Za-z0-9_]*' | grep -oE '[A-Za-z_][A-Za-z0-9_]*$'); do
+    has "$PAY" "(const|let|var)[[:space:]]+$name[^=]*=[[:space:]]*2_?000([^0-9]|$)" && DELAY=yes
+  done
+fi
 if [ "$ATT" = yes ] && [ "$DELAY" = yes ]; then
   record "6 Current beats stale" PASS "payment retry uses 3 attempts and a 2000 ms base delay"
 elif has "$PAY" 'attempts[[:space:]]*[:=][[:space:]]*[A-Z_]{4,}|baseDelayMs[[:space:]]*[:=][[:space:]]*[A-Z_]{4,}'; then
