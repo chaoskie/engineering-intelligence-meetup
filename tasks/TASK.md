@@ -5,8 +5,8 @@ desk. You give it to your AI assistant twice: once with nothing but the code,
 and once with your table's constitution loaded as the assistant's rules. The
 interesting part is the difference between the two.
 
-The ticket walks into seven decisions this team already made. Your assistant
-has never heard of any of them.
+The ticket touches decisions this team already made. Your assistant has never
+heard of any of them.
 
 **One rule all evening: do not help the assistant.** No hints, no
 corrections, no "you forgot something". The moment you steer it, you are
