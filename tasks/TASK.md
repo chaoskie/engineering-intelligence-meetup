@@ -53,6 +53,9 @@ measuring yourself instead of the constitution.
    sh /tmp/score.sh
    ```
 
+   Works on macOS and Linux as is. On Windows, run it in Git Bash, which
+   comes with Git for Windows; `/tmp` exists there too.
+
    Write the score on the sheet your facilitator hands out.
 
 8. Go back to the starting point and wait for part B:
